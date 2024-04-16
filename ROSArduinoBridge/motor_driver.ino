@@ -1,25 +1,48 @@
-/* Define single-letter commands that will be sent by the PC over the
-   serial link.
-*/
+/***************************************************************
+   Motor driver definitions
+   
+   Add a "#elif defined" block to this file to include support
+   for a particular motor driver.  Then add the appropriate
+   #define near the top of the main ROSArduinoBridge.ino file.
+   
+   *************************************************************/
 
-#ifndef COMMANDS_H
-#define COMMANDS_H
-
-#define ANALOG_READ    'a'
-#define GET_BAUDRATE   'b'
-#define PIN_MODE       'c'
-#define DIGITAL_READ   'd'
-#define READ_ENCODERS  'e'
-#define MOTOR_SPEEDS   'm'
-#define MOTOR_RAW_PWM  'o'
-#define PING           'p'
-#define RESET_ENCODERS 'r'
-#define SERVO_WRITE    's'
-#define SERVO_READ     't'
-#define UPDATE_PID     'u'
-#define DIGITAL_WRITE  'w'
-#define ANALOG_WRITE   'x'
-#define LEFT            0
-#define RIGHT           1
+#ifdef USE_BASE
+   
+#ifdef POLOLU_VNH5019 
+#elif defined Spark_Motor_Controller
+/*  void initMotorController() {
+    digitalWrite(RIGHT_MOTOR, HIGH);
+    digitalWrite(LEFT_MOTOR, HIGH);
+  }
+  */
+  void setMotorSpeed(int i, int spd) {
+    unsigned char reverse = 0;
+  
+    if (spd < 0)
+    {
+      spd = -spd;
+      reverse = 1;
+    }
+    if (spd > 255)
+      spd = 255;
+    
+    if (i == LEFT) { 
+      if      (reverse == 0) { LEFT_MOTOR_PWM.write(spd ); LEFT_MOTOR_PWM.write(spd ); }
+      else if (reverse == 1) { LEFT_MOTOR_PWM.write(spd ); LEFT_MOTOR_PWM.write(spd ); }
+    }
+    else /*if (i == RIGHT) //no need for condition*/ {
+      if      (reverse == 0) { RIGHT_MOTOR_PWM.write(spd ); RIGHT_MOTOR_PWM.write(spd ); }
+      else if (reverse == 1) { RIGHT_MOTOR_PWM.write(spd ); RIGHT_MOTOR_PWM.write(spd ); }
+    }
+  }
+  
+  void setMotorSpeeds(int leftSpeed, int rightSpeed) {
+    setMotorSpeed(LEFT, leftSpeed);
+    setMotorSpeed(RIGHT, rightSpeed);
+  }
+#else
+  #error A motor driver must be selected!
+#endif
 
 #endif

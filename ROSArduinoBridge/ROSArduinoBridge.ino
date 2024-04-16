@@ -1,6 +1,5 @@
 /*********************************************************************
  *  ROSArduinoBridge
- 
     A set of simple serial commands to control a differential drive
     robot and receive back sensor and odometry data. Default 
     configuration assumes use of an Arduino Mega + Pololu motor
@@ -56,14 +55,14 @@
    /* The Pololu MC33926 dual motor driver shield */
    //#define POLOLU_MC33926
 
-   /* The RoboGaia encoder shield */
-   //#define ROBOGAIA
+   /* The Spark motor controlle */
+   #define Spark_Motor_Controller
    
    /* Encoders directly attached to Arduino board */
    #define ARDUINO_ENC_COUNTER
 
    /* L298 Motor driver*/
-   #define L298_MOTOR_DRIVER
+   //#define L298_MOTOR_DRIVER
 #endif
 
 //#define USE_SERVOS  // Enable use of PWM servos as defined in servos.h
@@ -91,6 +90,7 @@
 #ifdef USE_SERVOS
    #include <Servo.h>
    #include "servos.h"
+   
 #endif
 
 #ifdef USE_BASE
@@ -272,7 +272,7 @@ void setup() {
     // enable PCINT1 and PCINT2 interrupt in the general interrupt mask
     PCICR |= (1 << PCIE1) | (1 << PCIE2);
   #endif
-  initMotorController();
+//  initMotorController();
   resetPID();
 #endif
 
@@ -355,4 +355,3 @@ void loop() {
   }
 #endif
 }
-

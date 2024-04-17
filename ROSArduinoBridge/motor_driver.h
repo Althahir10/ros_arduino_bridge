@@ -12,7 +12,7 @@ Servo RIGHT_MOTOR_PWM; // Declare servo object for right motor
 Servo LEFT_MOTOR_PWM;  // Declare servo object for left motor
 
 void initMotors() {
-  RIGHT_MOTOR_PWM.attach(12); // Attach right servo to pin 12
+  RIGHT_MOTOR_PWM.attach(11); // Attach right servo to pin 11
   LEFT_MOTOR_PWM.attach(13);  // Attach left servo to pin 13
 }
 

@@ -1,12 +1,3 @@
-/***************************************************************
-   Motor driver definitions
-   
-   Add a "#elif defined" block to this file to include support
-   for a particular motor driver.  Then add the appropriate
-   #define near the top of the main ROSArduinoBridge.ino file.
-   
-   *************************************************************/
-
 #ifdef USE_BASE
    
 #ifdef POLOLU_VNH5019
@@ -20,25 +11,25 @@ void initMotorController(){
     unsigned char reverse = 0;
   
     // Reverse direction if speed is negative
-    if (spd < 0) {
+    if (spd < 93) {
         spd = -spd;
         reverse = 1;
     }
-    if (spd > 255)
-        spd = 255;
+    if (spd > 180)
+        spd = 180;
     
     // Set speed based on direction
     if (i == LEFT) {
         if (reverse == 0) {
-            LEFT_MOTOR_PWM.writeMicroseconds(1500 + spd); // Center position + speed
+            LEFT_MOTOR_PWM.write(1500 + spd); // Center position + speed
         } else if (reverse == 1) {
-            LEFT_MOTOR_PWM.writeMicroseconds(1500 - spd); // Center position - speed
+            LEFT_MOTOR_PWM.write(1500 - spd); // Center position - speed
         }
     } else {
         if (reverse == 0) {
-            RIGHT_MOTOR_PWM.writeMicroseconds(1500 + spd); // Center position + speed
+            RIGHT_MOTOR_PWM.write(1500 + spd); // Center position + speed
         } else if (reverse == 1) {
-            RIGHT_MOTOR_PWM.writeMicroseconds(1500 - spd); // Center position - speed
+            RIGHT_MOTOR_PWM.write(1500 - spd); // Center position - speed
         }
     }
 }

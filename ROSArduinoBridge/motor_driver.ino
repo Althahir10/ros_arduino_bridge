@@ -2,77 +2,27 @@
    
 #ifdef POLOLU_VNH5019
 #elif defined Spark_Motor_Controller
-void initMotorController(){
-  LEFT_MOTOR_PWM.attach(LEFT_MOTOR_PIN);
-  RIGHT_MOTOR_PWM.attach(RIGHT_MOTOR_PIN);
+
+// Define servo objects for left and right motors
+Servo leftMotor;
+Servo rightMotor;
+
+void initMotorController() {
+  // Initialize servo objects with corresponding pins
+  leftMotor.attach(10);  // Attach left motor servo to pin 10
+  rightMotor.attach(11); // Attach right motor servo to pin 11
 }
 
-  void setMotorSpeed(int i, int spd) {
-    unsigned char reverse = 0;
-  
-    // Reverse direction if speed is negative
-    if (spd < 93) {
-        spd = -spd;
-        reverse = 1;
-    }
-    if (spd > 180)
-        spd = 180;
-    
-    // Set speed based on direction
-    if (i == LEFT) {
-        if (reverse == 0) {
-            LEFT_MOTOR_PWM.write(spd); // Center position + speed
-        } else if (reverse == 1) {
-            LEFT_MOTOR_PWM.write(-spd); // Center position - speed
-        }
-    } else {
-        if (reverse == 0) {
-            RIGHT_MOTOR_PWM.write(spd); // Center position + speed
-        } else if (reverse == 1) {
-            RIGHT_MOTOR_PWM.write(-spd); // Center position - speed
-        }
-    }
+void setMotorSpeeds(int leftSpeed, int rightSpeed) {
+  // Map speed values to servo positions
+  int leftPosition = map(leftSpeed, -255, 255, 0, 180);
+  int rightPosition = map(rightSpeed, -255, 255, 0, 180);
+
+  // Set servo positions
+  leftMotor.write(leftPosition);
+  rightMotor.write(rightPosition);
 }
 
-  void setMotorSpeeds(int leftSpeed, int rightSpeed) {
-    setMotorSpeed(LEFT, leftSpeed);
-    setMotorSpeed(RIGHT, rightSpeed);
-                                                      }
-
-
-
-
-
-/*  void initMotorController() {
-    digitalWrite(RIGHT_MOTOR, HIGH);
-    digitalWrite(LEFT_MOTOR, HIGH);
-  }
- 
-  void setMotorSpeed(int i, int spd) {
-    unsigned char reverse = 0;
- 
-    if (spd < 0)
-    {
-      spd = -spd;
-      reverse = 1;
-    }
-    if (spd > 255)
-      spd = 255;
-   
-    if (i == LEFT) {
-      if      (reverse == 0) { LEFT_MOTOR_PWM.write(spd ); }
-      else if (reverse == 1) { LEFT_MOTOR_PWM.write(spd ); }
-    }
-    else /*if (i == RIGHT) //no need for condition {
-      if      (reverse == 0) { RIGHT_MOTOR_PWM.write(spd );}
-      else if (reverse == 1) { RIGHT_MOTOR_PWM.write(spd );}
-    }
-  }
- 
-  void setMotorSpeeds(int leftSpeed, int rightSpeed) {
-    setMotorSpeed(LEFT, leftSpeed);
-    setMotorSpeed(RIGHT, rightSpeed);
-  }*/
 #else
   #error A motor driver must be selected!
 #endif

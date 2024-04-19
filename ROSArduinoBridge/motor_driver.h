@@ -3,17 +3,12 @@
    *************************************************************/
 #ifdef Spark_Motor_Controller
 #include <Servo.h>
-
-// Define servo objects for left and right motors
-extern Servo leftMotor;
-extern Servo rightMotor;
+// Modify the servoPins array to specify the PWM pins connected to the motor controller
+byte motorPins[N_SERVOS] = { 10, 11 };
 
 #endif
 
-void initMotorController();
-void setMotorSpeed(int i, int spd);
-void setMotorSpeeds(int leftSpeed, int rightSpeed);
-
+void setMotorSpeeds(int servoIndex, int speed); 
 
 
 

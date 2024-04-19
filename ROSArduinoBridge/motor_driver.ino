@@ -3,25 +3,25 @@
 #ifdef POLOLU_VNH5019
 #elif defined Spark_Motor_Controller
 
-// Define servo objects for left and right motors
-Servo leftMotor;
-Servo rightMotor;
 
-void initMotorController()  {
-  // Initialize servo objects
-  leftMotor.attach(10);
-  rightMotor.attach(11);
+
+
+// Modify the initServo function to configure PWM pins for motor control
+void initServo(int servoIndex, int stepDelayMs, int initPosition) {
+    // Configure the pin for PWM output
+    pinMode(motorPins[servoIndex], OUTPUT);
+    // Other initialization logic...
 }
 
-void setMotorSpeeds(int leftSpeed, int rightSpeed) {
-  // Map speed values to servo positions
-  int leftPosition = map(leftSpeed, -255, 255, 0, 180);
-  int rightPosition = map(rightSpeed, -255, 255, 0, 180);
-
-  // Set servo positions
-  leftMotor.write(leftPosition);
-  rightMotor.write(rightPosition);
+// Modify the setTargetPosition function to accept a speed value
+void setMotorSpeeds(int servoIndex, int speed) {
+    // Map the speed value to the appropriate PWM range (0 to 255)
+    int pwmValue = map(speed, -100, 100, 0, 255);
+    // Write the PWM value to the motor pin
+    analogWrite(motorPins[servoIndex], pwmValue);
+    // Other logic...
 }
+
 #else
   #error A motor driver must be selected!
 #endif

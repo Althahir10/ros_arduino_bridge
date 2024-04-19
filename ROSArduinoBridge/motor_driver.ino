@@ -23,13 +23,13 @@ void initMotorController(){
         if (reverse == 0) {
             LEFT_MOTOR_PWM.write(spd); // Center position + speed
         } else if (reverse == 1) {
-            LEFT_MOTOR_PWM.write(spd); // Center position - speed
+            LEFT_MOTOR_PWM.write(-spd); // Center position - speed
         }
     } else {
         if (reverse == 0) {
             RIGHT_MOTOR_PWM.write(spd); // Center position + speed
         } else if (reverse == 1) {
-            RIGHT_MOTOR_PWM.write(spd); // Center position - speed
+            RIGHT_MOTOR_PWM.write(-spd); // Center position - speed
         }
     }
 }

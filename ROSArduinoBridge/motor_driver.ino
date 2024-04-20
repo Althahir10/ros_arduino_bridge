@@ -23,10 +23,13 @@
 
       
     if (i == LEFT) {
-      analogWrite(LEFT_MOTOR_PIN, spd);
+      if      (reverse == 0){analogWrite(LEFT_MOTOR_PIN, spd);}
+      else if (reverse == 1){analogWrite(LEFT_MOTOR_PIN, -spd);}
+      
     }
     else /*if (i == RIGHT)*/ {
-      analogWrite(RIGHT_MOTOR_PIN, spd);
+      if      (reverse == 0){analogWrite(RIGHT_MOTOR_PIN, spd);}
+      if      (reverse == 1){analogWrite(RIGHT_MOTOR_PIN, -spd);}
     }
   }
   

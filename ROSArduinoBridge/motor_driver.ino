@@ -8,8 +8,20 @@
     pinMode(RIGHT_MOTOR_PIN, OUTPUT);
     pinMode(LEFT_MOTOR_PIN, OUTPUT);
   }
-  
+
+
+      
   void setMotorSpeed(int i, int spd) {
+      unsigned char reverse = 0;
+      if (spd < 0)
+    {
+      spd = -spd;
+      reverse = 1;
+    }
+    if (spd > 255)
+      spd = 255;
+
+      
     if (i == LEFT) {
       analogWrite(LEFT_MOTOR_PIN, spd);
     }

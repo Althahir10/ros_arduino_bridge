@@ -61,8 +61,6 @@
    /* Encoders directly attached to Arduino board */
    #define ARDUINO_ENC_COUNTER
 
-   /* L298 Motor driver*/
-   //#define L298_MOTOR_DRIVER
 #endif
 
 //#define USE_SERVOS  // Enable use of PWM servos as defined in servos.h
@@ -220,13 +218,17 @@ int runCommand() {
     Serial.println("OK"); 
     break;
   case MOTOR_RAW_PWM:
-    /* Reset the auto stop timer */
-    lastMotorCommand = millis();
-    resetPID();
-    moving = 0; // Sneaky way to temporarily disable the PID
-    setMotorSpeeds(arg1, arg2);
-    Serial.println("OK"); 
-    break;
+  /* Reset the auto stop timer */
+  lastMotorCommand = millis();
+  resetPID();
+  moving = 0; // Sneaky way to temporarily disable the PID
+  Serial.print("Left PWM: ");
+  Serial.println(arg1);
+  Serial.print("Right PWM: ");
+  Serial.println(arg2);
+  setMotorSpeeds(arg1, arg2);
+  Serial.println("OK"); 
+  break;
   case UPDATE_PID:
     while ((str = strtok_r(p, ":", &p)) != '\0') {
        pid_args[i] = atoi(str);

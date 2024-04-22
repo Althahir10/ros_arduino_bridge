@@ -11,27 +11,33 @@
 
 
       
-  void setMotorSpeed(int i, int spd) {
-      unsigned char reverse = 0;
-      if (spd < 0)
-    {
-      spd = -spd;
-      reverse = 1;
-    }
-    if (spd > 255)
-      spd = 255;
-
-      
-    if (i == LEFT) {
-      if      (reverse == 0){analogWrite(LEFT_MOTOR_PIN, spd);}
-      else if (reverse == 1){analogWrite(LEFT_MOTOR_PIN, -spd);}
-      
-    }
-    else /*if (i == RIGHT)*/ {
-      if      (reverse == 0){analogWrite(RIGHT_MOTOR_PIN, spd);}
-      if      (reverse == 1){analogWrite(RIGHT_MOTOR_PIN, -spd);}
-    }
+void setMotorSpeed(int i, int spd) {
+  unsigned char reverse = 0;
+  
+  if (spd < 0) {
+    spd = -spd;  // Make spd positive
+    reverse = 1; // Set reverse to true
   }
+  
+  if (spd > 255) {
+    spd = 255;   // Limit spd to 255
+  }
+  
+  // Map spd to the range expected by the motor controller
+  if (reverse) {
+    spd = map(spd, 0, 255, 0, 127); // Map to 0-127 for reverse
+  } else {
+    spd = map(spd, 0, 255, 128, 255); // Map to 128-255 for forward
+  }
+  
+  // Write the mapped spd value to the motor
+  if (i == LEFT) {
+    analogWrite(LEFT_MOTOR_PIN, spd);
+  } else /*if (i == RIGHT)*/ {
+    analogWrite(RIGHT_MOTOR_PIN, spd);
+  }
+}
+
   
   void setMotorSpeeds(int leftSpeed, int rightSpeed) {
     setMotorSpeed(LEFT, leftSpeed);

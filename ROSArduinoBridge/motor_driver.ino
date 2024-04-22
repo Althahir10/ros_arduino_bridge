@@ -25,9 +25,9 @@ void setMotorSpeed(int i, int spd) {
   
   // Map spd to the range expected by the motor controller
   if (reverse) {
-    spd = map(spd, 0, 255, 0, 127); // Map to 0-127 for reverse
+    spd = map(spd, 0, 255, 0, 90); // Map to 0-127 for reverse
   } else {
-    spd = map(spd, 0, 255, 128, 255); // Map to 128-255 for forward
+    spd = map(spd, 0, 255, 95, 180); // Map to 128-255 for forward
   }
   
   // Write the mapped spd value to the motor

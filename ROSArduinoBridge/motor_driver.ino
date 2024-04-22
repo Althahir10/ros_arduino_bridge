@@ -6,33 +6,22 @@
 
 
   void initMotorController() {
-    pinMode(RIGHT_MOTOR_PIN, OUTPUT);
-    pinMode(LEFT_MOTOR_PIN, OUTPUT);
+    leftMotor.attach(LEFT_MOTOR_PIN);
+    rightMotor.attach(RIGHT_MOTOR_PIN);
   }
 
 
       
-  void setMotorSpeed(int i, int spd) {
-      unsigned char reverse = 0;
-      if (spd < 0)
-    {
-      spd = -spd;
-      reverse = 1;
-    }
-    if (spd > 255)
-      spd = 255;
+void setMotorSpeed(int i, int spd) {
+  // Map spd from -255-255 to 1000-2000
+  spd = map(spd, -255, 255, 1000, 2000);
 
-      
-    if (i == LEFT) {
-      if      (reverse == 0){analogWrite(LEFT_MOTOR_PIN, spd);}
-      else if (reverse == 1){analogWrite(LEFT_MOTOR_PIN, -spd);}
-      
-    }
-    else /*if (i == RIGHT)*/ {
-      if      (reverse == 0){analogWrite(RIGHT_MOTOR_PIN, spd);}
-      if      (reverse == 1){analogWrite(RIGHT_MOTOR_PIN, -spd);}
-    }
+  if (i == LEFT) {
+    leftMotor.writeMicroseconds(spd);
+  } else /*if (i == RIGHT)*/ {
+    rightMotor.writeMicroseconds(spd);
   }
+}
   
   void setMotorSpeeds(int leftSpeed, int rightSpeed) {
     setMotorSpeed(LEFT, leftSpeed);

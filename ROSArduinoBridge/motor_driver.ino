@@ -22,9 +22,6 @@
       spd = -spd;
       reverse = 1;
     }
-    if (spd > 255)
-      spd = 255;
-
       
     if (i == LEFT) {
       if      (reverse == 0){analogWrite(LEFT_MOTOR_PIN, spd);}

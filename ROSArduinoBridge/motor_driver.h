@@ -4,8 +4,8 @@
 #ifdef Spark_Motor_Controller
 #include <Servo.h>
 
-  #define RIGHT_MOTOR_PIN 6
-  #define LEFT_MOTOR_PIN 11
+  #define RIGHT_MOTOR_PIN 9
+  #define LEFT_MOTOR_PIN 10
 
 #endif
 void initMotorController();

@@ -16,9 +16,9 @@ void setMotorSpeed(int i, int spd) {
       
   // Map speed to appropriate PWM value for Spark Motor Controller
   if (reverse) {
-    spd = map(spd, 0, 255, 1000, 1460); // Full reverse to neutral
+    spd = map(spd, 0, 255, 1000, 1400); // Full reverse to neutral
   } else {
-    spd = map(spd, 0, 255, 1540, 2000); // Neutral to full forward
+    spd = map(spd, 0, 255, 1560, 2000); // Neutral to full forward
   }
 
   if (i == LEFT) {

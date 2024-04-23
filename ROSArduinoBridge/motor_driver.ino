@@ -5,13 +5,27 @@
 
    
 void setMotorSpeed(int i, int spd) {
-  spd = map(spd, 0, 255, 1000, 2000);
+  int reverse = 0;
+
+  if (spd < 0) {
+    spd = -spd;  // Make speed positive
+    reverse = 1; // Note the direction
+  }
+
+  // Map speed to appropriate PWM value for Spark Motor Controller
+  if (reverse) {
+    spd = map(spd, 0, 255, 1000, 1460); // Full reverse to neutral
+  } else {
+    spd = map(spd, 0, 255, 1540, 2000); // Neutral to full forward
+  }
+
   if (i == LEFT) {
     analogWrite(LEFT_MOTOR_PIN, spd);
   } else /*if (i == RIGHT)*/ {
     analogWrite(RIGHT_MOTOR_PIN, spd);
   }
 }
+
 
 
   

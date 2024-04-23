@@ -3,8 +3,7 @@
 #ifdef POLOLU_VNH5019
 #elif defined Spark_Motor_Controller
 
-
-      
+   
 void setMotorSpeed(int i, int spd) {
   unsigned char reverse = 0;
   if (spd < 0) {

@@ -44,6 +44,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
+
+
+
 #define USE_BASE      // Enable the base controller code
 //#undef USE_BASE     // Disable the base controller code
 
@@ -63,8 +66,8 @@
 
 #endif
 
-//#define USE_SERVOS  // Enable use of PWM servos as defined in servos.h
-#undef USE_SERVOS     // Disable use of PWM servos
+#define USE_SERVOS  // Enable use of PWM servos as defined in servos.h
+//#undef USE_SERVOS     // Disable use of PWM servos
 
 /* Serial port baud rate */
 #define BAUDRATE     57600
@@ -250,6 +253,8 @@ int runCommand() {
 /* Setup function--runs once at startup. */
 void setup() {
   Serial.begin(BAUDRATE);
+  // Set PWM frequency for D9 & D10
+  TCCR1B = TCCR1B & 0b11111000 | 0x01; // for D9 & D10, set prescaler to 1, PWM frequency to 31372.55 Hz
 
 // Initialize the motor controller if used */
 #ifdef USE_BASE

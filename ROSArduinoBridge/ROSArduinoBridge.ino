@@ -252,6 +252,8 @@ int runCommand() {
 
 /* Setup function--runs once at startup. */
 void setup() {
+      Serial.begin(BAUDRATE);
+
 // Initialize the motor controller if used */
 #ifdef USE_BASE
   #ifdef ARDUINO_ENC_COUNTER

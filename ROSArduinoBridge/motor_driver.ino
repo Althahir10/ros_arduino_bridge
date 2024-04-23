@@ -5,26 +5,15 @@
 
    
 void setMotorSpeed(int i, int spd) {
-  unsigned char reverse = 0;
-  if (spd < 0) {
-    spd = -spd;  // Make speed positive
-    reverse = 1; // Note the direction
-  }
-  if (spd > 255) {
-    spd = 255;   // Limit speed to 255
-  }
-
-  // If reverse, subtract speed from 255
-  if (reverse) {
-    spd = 255 - spd;
-  }
-
+  //spd = map(spd, 0, 255, 1000, 2000);
   if (i == LEFT) {
     analogWrite(LEFT_MOTOR_PIN, spd);
   } else /*if (i == RIGHT)*/ {
     analogWrite(RIGHT_MOTOR_PIN, spd);
   }
 }
+
+
   
   void setMotorSpeeds(int leftSpeed, int rightSpeed) {
     setMotorSpeed(LEFT, leftSpeed);

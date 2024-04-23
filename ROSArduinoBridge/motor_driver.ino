@@ -5,7 +5,7 @@
 
    
 void setMotorSpeed(int i, int spd) {
-  //spd = map(spd, 0, 255, 1000, 2000);
+  spd = map(spd, 0, 255, 1000, 2000);
   if (i == LEFT) {
     analogWrite(LEFT_MOTOR_PIN, spd);
   } else /*if (i == RIGHT)*/ {

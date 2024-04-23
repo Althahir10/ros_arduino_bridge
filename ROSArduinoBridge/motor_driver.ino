@@ -11,7 +11,9 @@ void setMotorSpeed(int i, int spd) {
     spd = -spd;  // Make speed positive
     reverse = 1; // Note the direction
   }
-
+  if (spd > 255)
+      spd = 255;
+      
   // Map speed to appropriate PWM value for Spark Motor Controller
   if (reverse) {
     spd = map(spd, 0, 255, 1000, 1460); // Full reverse to neutral

@@ -45,8 +45,6 @@
  *********************************************************************/
 
 
-
-
 #define USE_BASE      // Enable the base controller code
 //#undef USE_BASE     // Disable the base controller code
 
@@ -66,9 +64,6 @@
 
 #endif
 
-#define USE_SERVOS  // Enable use of PWM servos as defined in servos.h
-//#undef USE_SERVOS     // Disable use of PWM servos
-
 /* Serial port baud rate */
 #define BAUDRATE     57600
 
@@ -87,12 +82,7 @@
 /* Sensor functions */
 #include "sensors.h"
 
-/* Include servo support if required */
-#ifdef USE_SERVOS
-   #include <Servo.h>
-   #include "servos.h"
    
-#endif
 
 #ifdef USE_BASE
   /* Motor driver function definitions */
@@ -186,16 +176,7 @@ int runCommand() {
   case PING:
     Serial.println(Ping(arg1));
     break;
-#ifdef USE_SERVOS
-  case SERVO_WRITE:
-    servos[arg1].setTargetPosition(arg2);
-    Serial.println("OK");
-    break;
-  case SERVO_READ:
-    Serial.println(servos[arg1].getServo().read());
-    break;
-#endif
-    
+
 #ifdef USE_BASE
   case READ_ENCODERS:
     Serial.print(readEncoder(LEFT));
@@ -281,16 +262,7 @@ void setup() {
   resetPID();
 #endif
 
-/* Attach servos if used */
-  #ifdef USE_SERVOS
-    int i;
-    for (i = 0; i < N_SERVOS; i++) {
-      servos[i].initServo(
-          servoPins[i],
-          stepDelay[i],
-          servoInitPosition[i]);
-    }
-  #endif
+
 }
 
 /* Enter the main loop.  Read and parse input from the serial port
@@ -352,11 +324,6 @@ void loop() {
   }
 #endif
 
-// Sweep servos
-#ifdef USE_SERVOS
-  int i;
-  for (i = 0; i < N_SERVOS; i++) {
-    servos[i].doSweep();
-  }
-#endif
+
+
 }

@@ -11,17 +11,20 @@ void initMotorController() {
 
 
 void setMotorSpeed(int i, int spd) {
-  if (spd < 0)
-    {
-      spd = -spd;
-      //reverse = 1;
-    }
-    if (spd > 255)
-      spd = 255;
+  int pwm;
+
+  if (spd >= 0) {
+    // Map forward speed to appropriate PWM value
+    pwm = map(spd, 0, 255, 1535, 2000); // Neutral to full forward
+  } else {
+    // Map reverse speed to appropriate PWM value
+    pwm = map(-spd, 0, 255, 1465, 1000); // Full reverse to neutral
+  }
+
   if (i == LEFT) {
-    leftMotor.writeMicroseconds(spd);
+    analogWrite(LEFT_MOTOR_PIN, pwm);
   } else /*if (i == RIGHT)*/ {
-    rightMotor.writeMicroseconds(spd);
+    analogWrite(RIGHT_MOTOR_PIN, pwm);
   }
 }
 

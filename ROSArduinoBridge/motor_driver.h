@@ -2,8 +2,8 @@
    Motor driver function definitions - by James Nugen
    *************************************************************/
 #ifdef Spark_Motor_Controller
-  #define RIGHT_MOTOR_PIN 11
-  #define LEFT_MOTOR_PIN 6
+  #define RIGHT_MOTOR_PIN 6
+  #define LEFT_MOTOR_PIN 5
 
 #endif
 void initMotorController();

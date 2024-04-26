@@ -4,7 +4,7 @@
 void setMotorSpeed(int i, int spd) {
   int reverse = 0;
   if (spd < 0) {
-    spd = -spd;  // Make speed positive
+    //spd = -spd;  // Make speed positive
     reverse = 1; // Note the direction
   }
   if (spd > 255) {

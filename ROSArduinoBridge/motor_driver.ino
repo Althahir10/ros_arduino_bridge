@@ -19,9 +19,9 @@ void setMotorSpeed(int i, int spd) {
   }
 
   if (i == LEFT) {
-    leftMotor.write(spd);
+    leftMotor.writeMicroseconds(spd);
   } else /*if (i == RIGHT)*/ {
-    rightMotor.write(spd);
+    rightMotor.writeMicroseconds(spd);
   }
 }
 

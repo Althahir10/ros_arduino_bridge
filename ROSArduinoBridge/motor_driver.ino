@@ -12,20 +12,16 @@ void initMotorController() {
 }
 
 void setMotorSpeed(int i, int spd) {
-  int pwm;
-
-  if (spd >= 0) {
-    // Map forward speed to appropriate PWM value
-    pwm = map(spd, 0, 255, 1535, 2000); // Neutral to full forward
-  } else {
-    // Map reverse speed to appropriate PWM value
-    pwm = map(-spd, 0, 255, 1465, 1000); // Full reverse to neutral
+  if (spd > 255) {
+    spd = 255;   // Limit speed to 255
+  } else if (spd < -255) {
+    spd = -255;  // Limit speed to -255
   }
 
   if (i == LEFT) {
-    leftMotor.writeMicroseconds(pwm);
+    leftMotor.write(spd);
   } else /*if (i == RIGHT)*/ {
-    rightMotor.writeMicroseconds(pwm);
+    rightMotor.write(spd);
   }
 }
 
@@ -38,4 +34,4 @@ void setMotorSpeeds(int leftSpeed, int rightSpeed) {
 #error A motor driver must be selected!
 #endif
 
-#endif 
+#endif // This is the missing #endif

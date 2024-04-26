@@ -2,26 +2,25 @@
 #ifdef POLOLU_VNH5019
 #elif defined Spark_Motor_Controller //Spark motor macro
 
-#include <Servo.h>
-
-//Servo leftMotor, rightMotor;
-
-void initMotorController() {
-  leftMotor.attach(LEFT_MOTOR_PIN);
-  rightMotor.attach(RIGHT_MOTOR_PIN);
-}
-
 void setMotorSpeed(int i, int spd) {
-  if (spd > 255) {
-    spd = 255;   // Limit speed to 255
-  } else if (spd < -255) {
-    spd = -255;  // Limit speed to -255
+  int reverse = 0;
+
+  if (spd < 0) {
+    spd = -spd;  // Make speed positive
+    reverse = 1; // Note the direction
+  }
+
+  // Map speed to appropriate PWM value for Spark Motor Controller
+  if (reverse) {
+    spd = map(spd, 0, 255, 1000, 1460); // Full reverse to neutral
+  } else {
+    spd = map(spd, 0, 255, 1540, 2000); // Neutral to full forward
   }
 
   if (i == LEFT) {
-    leftMotor.writeMicroseconds(spd);
+    analogWrite(LEFT_MOTOR_PIN, spd);
   } else /*if (i == RIGHT)*/ {
-    rightMotor.writeMicroseconds(spd);
+    analogWrite(RIGHT_MOTOR_PIN, spd);
   }
 }
 
@@ -34,4 +33,4 @@ void setMotorSpeeds(int leftSpeed, int rightSpeed) {
 #error A motor driver must be selected!
 #endif
 
-#endif // This is the missing #endif
+#endif

@@ -2,8 +2,8 @@
 #ifdef POLOLU_VNH5019
 #elif defined Spark_Motor_Controller //Spark motor macro
 void setMotorSpeed(int i, int spd) {
-  if (spd > 255) {
-    spd = 255;   // Limit speed to 255
+  if (spd > 130) {
+    spd = 130;   // Limit speed to 255
   } else if (spd < 0) {
     spd = 0;     // Limit speed to 0
   }
